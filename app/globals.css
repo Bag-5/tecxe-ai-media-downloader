@@ -1,0 +1,393 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * ------------------------------------------------------------------ */
+:root {
+  /* Layered neutrals — each step is a real elevation, not just "lighter". */
+  --bg: #07080c;
+  --bg-elev: #0c0e14;
+  --surface: #10131b;
+  --surface-2: #161a24;
+  --surface-3: #1c2130;
+  --border: #212736;
+  --border-strong: #2e3648;
+
+  --text: #eef1f7;
+  --text-soft: #b9c0d0;
+  --muted: #7f879c;
+  --faint: #5a6275;
+
+  --accent: #5eead4;
+  --accent-dim: #2dd4bf;
+  --accent-deep: #0f766e;
+  --accent-glow: rgb(45 212 191 / 0.16);
+
+  --danger: #fb7185;
+  --warn: #fbbf24;
+  --ok: #4ade80;
+  --info: #60a5fa;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow: 0 4px 16px -4px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 18px 48px -12px rgb(0 0 0 / 0.65);
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  /* Two soft light sources so the flat dark background reads as depth
+     rather than a void. Fixed so it doesn't parallax while scrolling. */
+  background-image:
+    radial-gradient(
+      900px 500px at 12% -10%,
+      rgb(45 212 191 / 0.07),
+      transparent 70%
+    ),
+    radial-gradient(
+      800px 500px at 88% 0%,
+      rgb(96 165 250 / 0.05),
+      transparent 70%
+    );
+  background-attachment: fixed;
+  color: var(--text);
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI Variable Display',
+    'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+code,
+.mono {
+  font-family:
+    ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo,
+    Consolas, monospace;
+  font-variant-ligatures: none;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: #04211d;
+}
+
+/* ------------------------------------------------------------------ *
+ * Typography helpers
+ * ------------------------------------------------------------------ */
+.display {
+  letter-spacing: -0.025em;
+  font-weight: 640;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ *
+ * Surfaces
+ * ------------------------------------------------------------------ */
+.panel {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--surface) 92%, white 8%),
+    var(--surface)
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-hover {
+  transition:
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+.panel-hover:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* ------------------------------------------------------------------ *
+ * Controls
+ * ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.05rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  font-weight: 550;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    color 0.15s var(--ease),
+    transform 0.1s var(--ease),
+    box-shadow 0.15s var(--ease);
+}
+.btn:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--accent-deep);
+  color: var(--text);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dim) 100%);
+  border-color: var(--accent-dim);
+  color: #04211d;
+  font-weight: 620;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.22) inset,
+    0 6px 18px -8px var(--accent-glow);
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #7df0dd 0%, var(--accent) 100%);
+  border-color: var(--accent);
+  color: #04211d;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.28) inset,
+    0 10px 26px -10px var(--accent-glow);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: transparent;
+  color: var(--text);
+}
+
+.input {
+  width: 100%;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg-elev) 88%, transparent);
+  color: var(--text);
+  font-size: 0.9375rem;
+  outline: none;
+  transition:
+    border-color 0.15s var(--ease),
+    box-shadow 0.15s var(--ease),
+    background 0.15s var(--ease);
+}
+.input::placeholder {
+  color: var(--faint);
+}
+.input:hover:not(:disabled) {
+  border-color: var(--border-strong);
+}
+.input:focus {
+  border-color: var(--accent-dim);
+  background: var(--bg-elev);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+.input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Visible focus for keyboard users on every interactive element. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-dim);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ------------------------------------------------------------------ *
+ * Chips / tags
+ * ------------------------------------------------------------------ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition:
+    background 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    color 0.15s var(--ease);
+}
+button.tag:hover {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+  color: var(--text-soft);
+}
+.tag-active {
+  background: color-mix(in oklab, var(--accent-dim) 18%, transparent);
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ *
+ * Progress
+ * ------------------------------------------------------------------ */
+.progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-deep), var(--accent));
+  box-shadow: 0 0 12px var(--accent-glow);
+  transition: width 0.45s var(--ease);
+}
+
+/* Indeterminate shimmer for the queued phase. */
+.progress-fill-indeterminate {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-dim),
+    transparent
+  );
+  animation: shimmer 1.5s var(--ease) infinite;
+}
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion
+ * ------------------------------------------------------------------ */
+.spin {
+  animation: spin 0.85s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.28s var(--ease) both;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s var(--ease) infinite;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: sweep 1.4s var(--ease) infinite;
+  border-radius: var(--radius);
+}
+@keyframes sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Scrollbar
+ * ------------------------------------------------------------------ */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* Respect users who ask the OS to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

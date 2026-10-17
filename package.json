@@ -1,0 +1,42 @@
+{
+  "name": "tecxe-ai-media-downloader",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local AI-assisted media downloader. Paste a link or describe what you want; it extracts, ranks, normalises filenames, and files everything into a searchable library.",
+  "license": "MIT",
+  "keywords": [
+    "yt-dlp",
+    "gallery-dl",
+    "media-downloader",
+    "nextjs",
+    "neon",
+    "openrouter"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "setup": "node scripts/setup.mjs",
+    "setup:check": "node scripts/setup.mjs --check",
+    "update:binaries": "node scripts/setup.mjs --force"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "execa": "^9.5.2",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

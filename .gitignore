@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Downloaded binaries (fetched by scripts/setup.mjs)
+/bin/*
+!/bin/.gitkeep
+
+# Downloaded media — never commit
+/Downloads/
+!/Downloads/.gitkeep
+
+# Secrets — never commit
+.env
+.env.local
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
